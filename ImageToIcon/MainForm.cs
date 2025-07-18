@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Drawing.Imaging;
 
 namespace ImageToIcon;
 
@@ -82,10 +83,23 @@ public partial class MainForm : Form
 
         var success = ImagingHelper.ConvertToIcon(_image, iconPath, sizes);
 
-        if (success) return;
+        if (!success)
+        {
+            MessageBox.Show(@"Failed to generate icon file.",
+                @"Image To Icon", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
 
-        MessageBox.Show(@"Failed to generate icon file.",
-            @"Image To Icon", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        var name = string.IsNullOrWhiteSpace(ImagingHelper.LatestGeneratedFilePath)
+            ? "unnamed"
+            : Path.GetFileName(ImagingHelper.LatestGeneratedFilePath);
+        ShowIconImages(ImagingHelper.LatestGeneratedImages, name);
+    }
+
+    private void ShowIconImages(List<Image> images, string name)
+    {
+        var form = new IconImagesForm(images, name);
+        form.Show();
     }
 
     #endregion Private members

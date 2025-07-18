@@ -56,6 +56,7 @@
             saveIconButton = new Button();
             label8 = new Label();
             openInExplorerButton = new Button();
+            label9 = new Label();
             ((System.ComponentModel.ISupportInitialize)imagePictureBox).BeginInit();
             imageSizesGroupBox.SuspendLayout();
             SuspendLayout();
@@ -71,14 +72,16 @@
             // 
             // imagePathTextBox
             // 
+            imagePathTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             imagePathTextBox.Location = new Point(12, 27);
             imagePathTextBox.Name = "imagePathTextBox";
-            imagePathTextBox.Size = new Size(425, 23);
+            imagePathTextBox.Size = new Size(437, 23);
             imagePathTextBox.TabIndex = 1;
             // 
             // imageBrowseButton
             // 
-            imageBrowseButton.Location = new Point(443, 27);
+            imageBrowseButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            imageBrowseButton.Location = new Point(455, 27);
             imageBrowseButton.Name = "imageBrowseButton";
             imageBrowseButton.Size = new Size(60, 23);
             imageBrowseButton.TabIndex = 2;
@@ -88,8 +91,9 @@
             // 
             // imagePictureBox
             // 
+            imagePictureBox.BackColor = Color.Fuchsia;
             imagePictureBox.BorderStyle = BorderStyle.Fixed3D;
-            imagePictureBox.Location = new Point(129, 56);
+            imagePictureBox.Location = new Point(166, 56);
             imagePictureBox.Name = "imagePictureBox";
             imagePictureBox.Size = new Size(100, 84);
             imagePictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -98,7 +102,8 @@
             // 
             // loadImageButton
             // 
-            loadImageButton.Location = new Point(12, 56);
+            loadImageButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            loadImageButton.Location = new Point(521, 27);
             loadImageButton.Name = "loadImageButton";
             loadImageButton.Size = new Size(88, 23);
             loadImageButton.TabIndex = 4;
@@ -260,7 +265,7 @@
             imageSizesGroupBox.Controls.Add(size256CheckBox);
             imageSizesGroupBox.Controls.Add(size32CheckBox);
             imageSizesGroupBox.Controls.Add(size48CheckBox);
-            imageSizesGroupBox.Location = new Point(12, 158);
+            imageSizesGroupBox.Location = new Point(12, 160);
             imageSizesGroupBox.Name = "imageSizesGroupBox";
             imageSizesGroupBox.Size = new Size(585, 177);
             imageSizesGroupBox.TabIndex = 10;
@@ -280,7 +285,7 @@
             // destinationBrowseButton
             // 
             destinationBrowseButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            destinationBrowseButton.Location = new Point(537, 356);
+            destinationBrowseButton.Location = new Point(549, 358);
             destinationBrowseButton.Name = "destinationBrowseButton";
             destinationBrowseButton.Size = new Size(60, 23);
             destinationBrowseButton.TabIndex = 13;
@@ -291,16 +296,16 @@
             // destinationDirectoryTextBox
             // 
             destinationDirectoryTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            destinationDirectoryTextBox.Location = new Point(12, 356);
+            destinationDirectoryTextBox.Location = new Point(12, 358);
             destinationDirectoryTextBox.Name = "destinationDirectoryTextBox";
-            destinationDirectoryTextBox.Size = new Size(519, 23);
+            destinationDirectoryTextBox.Size = new Size(531, 23);
             destinationDirectoryTextBox.TabIndex = 12;
             // 
             // label7
             // 
             label7.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label7.AutoSize = true;
-            label7.Location = new Point(12, 338);
+            label7.Location = new Point(12, 340);
             label7.Name = "label7";
             label7.Size = new Size(120, 15);
             label7.TabIndex = 11;
@@ -310,7 +315,7 @@
             // 
             label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label3.AutoSize = true;
-            label3.Location = new Point(12, 382);
+            label3.Location = new Point(12, 384);
             label3.Name = "label3";
             label3.Size = new Size(85, 15);
             label3.TabIndex = 14;
@@ -319,19 +324,19 @@
             // iconFileNameTextBox
             // 
             iconFileNameTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            iconFileNameTextBox.Location = new Point(12, 400);
+            iconFileNameTextBox.Location = new Point(12, 402);
             iconFileNameTextBox.Name = "iconFileNameTextBox";
-            iconFileNameTextBox.Size = new Size(303, 23);
+            iconFileNameTextBox.Size = new Size(254, 23);
             iconFileNameTextBox.TabIndex = 15;
             // 
             // saveIconButton
             // 
             saveIconButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            saveIconButton.Location = new Point(391, 399);
+            saveIconButton.Location = new Point(325, 401);
             saveIconButton.Name = "saveIconButton";
-            saveIconButton.Size = new Size(75, 23);
+            saveIconButton.Size = new Size(129, 23);
             saveIconButton.TabIndex = 16;
-            saveIconButton.Text = "Save file";
+            saveIconButton.Text = "Generate icon file";
             saveIconButton.UseVisualStyleBackColor = true;
             saveIconButton.Click += SaveIconButton_Click;
             // 
@@ -339,7 +344,7 @@
             // 
             label8.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label8.AutoSize = true;
-            label8.Location = new Point(321, 403);
+            label8.Location = new Point(272, 405);
             label8.Name = "label8";
             label8.Size = new Size(30, 15);
             label8.TabIndex = 17;
@@ -348,7 +353,7 @@
             // openInExplorerButton
             // 
             openInExplorerButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            openInExplorerButton.Location = new Point(472, 399);
+            openInExplorerButton.Location = new Point(472, 401);
             openInExplorerButton.Name = "openInExplorerButton";
             openInExplorerButton.Size = new Size(124, 23);
             openInExplorerButton.TabIndex = 18;
@@ -356,11 +361,20 @@
             openInExplorerButton.UseVisualStyleBackColor = true;
             openInExplorerButton.Click += OpenInExplorerButton_Click;
             // 
+            // label9
+            // 
+            label9.Location = new Point(12, 56);
+            label9.Name = "label9";
+            label9.Size = new Size(148, 70);
+            label9.TabIndex = 19;
+            label9.Text = "The loaded image is shown in its natural size in the picture box to the right.";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(608, 435);
+            ClientSize = new Size(620, 437);
+            Controls.Add(label9);
             Controls.Add(openInExplorerButton);
             Controls.Add(label8);
             Controls.Add(saveIconButton);
@@ -413,5 +427,6 @@
         private Button saveIconButton;
         private Label label8;
         private Button openInExplorerButton;
+        private Label label9;
     }
 }

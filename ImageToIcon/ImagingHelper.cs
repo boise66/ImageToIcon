@@ -23,6 +23,10 @@ public static class ImagingHelper
 {
     public static readonly int[] DefaultSizes = [256, 48, 32, 16];
 
+    public static List<Image> LatestGeneratedImages { get; private set; } = [];
+    
+    public static string? LatestGeneratedFilePath { get; private set; }
+    
     /// <summary>
     /// Converts a PNG image to an icon (ico) with all the sizes windows likes
     /// </summary>
@@ -33,6 +37,7 @@ public static class ImagingHelper
     public static bool ConvertToIcon(Bitmap inputBitmap, Stream output,
         int[]? sizes = null)
     {
+        LatestGeneratedImages.Clear();
         sizes ??= DefaultSizes;
         if (sizes.Length == 0) return false;
 
@@ -45,6 +50,8 @@ public static class ImagingHelper
             var memoryStream = new MemoryStream();
             newBitmap.Save(memoryStream, ImageFormat.Png);
             imageStreams.Add(memoryStream);
+            
+            LatestGeneratedImages.Add(newBitmap);
         }
 
         using var iconWriter = new BinaryWriter(output);
@@ -128,6 +135,7 @@ public static class ImagingHelper
     public static bool ConvertToIcon(string inputPath, string outputPath,
         int[]? sizes = null)
     {
+        LatestGeneratedFilePath = outputPath;
         using var inputStream = new FileStream(inputPath, FileMode.Open);
         using var outputStream = new FileStream(outputPath, FileMode.OpenOrCreate);
         return ConvertToIcon(inputStream, outputStream, sizes);
@@ -143,6 +151,7 @@ public static class ImagingHelper
     public static bool ConvertToIcon(Image inputImage, string outputPath,
         int[]? sizes = null)
     {
+        LatestGeneratedFilePath = outputPath;
         using var outputStream = new FileStream(outputPath, FileMode.OpenOrCreate);
         return ConvertToIcon(new Bitmap(inputImage), outputStream, sizes);
     }
