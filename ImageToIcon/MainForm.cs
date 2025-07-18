@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace ImageToIcon;
 
 public partial class MainForm : Form
@@ -52,18 +54,38 @@ public partial class MainForm : Form
 
     private int[] GetSizeArray()
     {
-        var sizes = new List<int>();
-
-        foreach (var sizeCheckBox in _sizeByCheckBox.Keys)
-        {
-            if (!sizeCheckBox.Checked) continue;
-
-            sizes.Add(_sizeByCheckBox[sizeCheckBox]);
-        }
+        var sizes = (from sizeCheckBox in _sizeByCheckBox.Keys
+                     where sizeCheckBox.Checked
+                     select _sizeByCheckBox[sizeCheckBox])
+            .ToList();
 
         sizes.Sort();
 
         return sizes.ToArray();
+    }
+
+    private void SaveIcon()
+    {
+        // Sanity check.
+        if (_image == null) return;
+        if (string.IsNullOrWhiteSpace(destinationDirectoryTextBox.Text)) return;
+        if (string.IsNullOrWhiteSpace(iconFileNameTextBox.Text)) return;
+
+        var destinationDirectory = destinationDirectoryTextBox.Text;
+        var fileName = iconFileNameTextBox.Text + ".ico";
+        var sizes = GetSizeArray();
+
+        if (!Directory.Exists(destinationDirectory)) return;
+        if (sizes.Length == 0) return;
+
+        var iconPath = Path.Combine(destinationDirectory, fileName);
+
+        var success = ImagingHelper.ConvertToIcon(_image, iconPath, sizes);
+
+        if (success) return;
+
+        MessageBox.Show(@"Failed to generate icon file.",
+            @"Image To Icon", MessageBoxButtons.OK, MessageBoxIcon.Error);
     }
 
     #endregion Private members
@@ -98,7 +120,27 @@ public partial class MainForm : Form
 
     private void SaveIconButton_Click(object sender, EventArgs e)
     {
+        SaveIcon();
+    }
 
+    private void OpenInExplorerButton_Click(object sender, EventArgs e)
+    {
+        var directoryPath = destinationDirectoryTextBox.Text;
+        if (!Directory.Exists(directoryPath)) return;
+
+        if (!string.IsNullOrWhiteSpace(iconFileNameTextBox.Text))
+        {
+            var fileName = $"{iconFileNameTextBox.Text}.ico";
+            var filePath = Path.Combine(directoryPath, fileName);
+
+            if (File.Exists(filePath))
+            {
+                Process.Start("explorer.exe", "/select, " + filePath);
+                return;
+            }
+        }
+
+        Process.Start("explorer.exe", directoryPath);
     }
 
     #endregion Event handlers

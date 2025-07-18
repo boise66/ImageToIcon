@@ -42,7 +42,7 @@ public static class ImagingHelper
         foreach (var size in sizes)
         {
             var newBitmap = ResizeImage(inputBitmap, size, size);
-            using var memoryStream = new MemoryStream();
+            var memoryStream = new MemoryStream();
             newBitmap.Save(memoryStream, ImageFormat.Png);
             imageStreams.Add(memoryStream);
         }

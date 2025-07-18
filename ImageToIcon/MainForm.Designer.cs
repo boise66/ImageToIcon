@@ -55,6 +55,7 @@
             iconFileNameTextBox = new TextBox();
             saveIconButton = new Button();
             label8 = new Label();
+            openInExplorerButton = new Button();
             ((System.ComponentModel.ISupportInitialize)imagePictureBox).BeginInit();
             imageSizesGroupBox.SuspendLayout();
             SuspendLayout();
@@ -320,13 +321,13 @@
             iconFileNameTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             iconFileNameTextBox.Location = new Point(12, 400);
             iconFileNameTextBox.Name = "iconFileNameTextBox";
-            iconFileNameTextBox.Size = new Size(278, 23);
+            iconFileNameTextBox.Size = new Size(303, 23);
             iconFileNameTextBox.TabIndex = 15;
             // 
             // saveIconButton
             // 
             saveIconButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            saveIconButton.Location = new Point(342, 399);
+            saveIconButton.Location = new Point(391, 399);
             saveIconButton.Name = "saveIconButton";
             saveIconButton.Size = new Size(75, 23);
             saveIconButton.TabIndex = 16;
@@ -338,17 +339,29 @@
             // 
             label8.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label8.AutoSize = true;
-            label8.Location = new Point(296, 403);
+            label8.Location = new Point(321, 403);
             label8.Name = "label8";
             label8.Size = new Size(30, 15);
             label8.TabIndex = 17;
             label8.Text = ".ICO";
+            // 
+            // openInExplorerButton
+            // 
+            openInExplorerButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            openInExplorerButton.Location = new Point(472, 399);
+            openInExplorerButton.Name = "openInExplorerButton";
+            openInExplorerButton.Size = new Size(124, 23);
+            openInExplorerButton.TabIndex = 18;
+            openInExplorerButton.Text = "Open in Explorer";
+            openInExplorerButton.UseVisualStyleBackColor = true;
+            openInExplorerButton.Click += OpenInExplorerButton_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(608, 435);
+            Controls.Add(openInExplorerButton);
             Controls.Add(label8);
             Controls.Add(saveIconButton);
             Controls.Add(iconFileNameTextBox);
@@ -399,5 +412,6 @@
         private TextBox iconFileNameTextBox;
         private Button saveIconButton;
         private Label label8;
+        private Button openInExplorerButton;
     }
 }
