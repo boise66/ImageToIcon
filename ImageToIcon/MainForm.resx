@@ -117,4 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Select image sizes to include in the icon file.
+The first column are the recommended sizes.
+The other columns indicate additional sizes used by Windows when the screen is set to 125% and 150% scaling.
+</value>
+  </data>
 </root>
