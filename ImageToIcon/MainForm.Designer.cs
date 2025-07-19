@@ -59,6 +59,7 @@
             label9 = new Label();
             statusStrip1 = new StatusStrip();
             statusLabel = new ToolStripStatusLabel();
+            helpButton = new Button();
             ((System.ComponentModel.ISupportInitialize)imagePictureBox).BeginInit();
             imageSizesGroupBox.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -385,16 +386,27 @@
             // 
             statusLabel.DisplayStyle = ToolStripItemDisplayStyle.Text;
             statusLabel.Name = "statusLabel";
-            statusLabel.Size = new Size(574, 17);
+            statusLabel.Size = new Size(605, 17);
             statusLabel.Spring = true;
             statusLabel.Text = "<status>";
             statusLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // helpButton
+            // 
+            helpButton.Location = new Point(562, 1);
+            helpButton.Name = "helpButton";
+            helpButton.Size = new Size(46, 23);
+            helpButton.TabIndex = 21;
+            helpButton.Text = "Help";
+            helpButton.UseVisualStyleBackColor = true;
+            helpButton.Click += HelpButton_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(620, 485);
+            Controls.Add(helpButton);
             Controls.Add(statusStrip1);
             Controls.Add(label9);
             Controls.Add(openInExplorerButton);
@@ -454,5 +466,6 @@
         private Label label9;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel statusLabel;
+        private Button helpButton;
     }
 }

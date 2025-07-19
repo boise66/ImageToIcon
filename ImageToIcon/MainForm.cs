@@ -28,7 +28,7 @@ public partial class MainForm : Form
         }
 
         destinationDirectoryTextBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-        
+
         SetStatusMessage("Ready.");
     }
 
@@ -49,7 +49,7 @@ public partial class MainForm : Form
             SetStatusMessage("Cannot load image. No file specified.");
             return;
         }
-        
+
         if (!File.Exists(filePath))
         {
             SetStatusMessage("Cannot load image. Specified file does not exist.");
@@ -71,9 +71,9 @@ public partial class MainForm : Form
             MessageBox.Show($@"Exception when loading image file:\n\n{e}",
                 @"Image To Icon", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        
+
         SetStatusMessage("Image file loaded.");
-        
+
         _imageFilePath = filePath;
 
         imagePictureBox.Image = _image;
@@ -99,9 +99,9 @@ public partial class MainForm : Form
             SetStatusMessage("Cannot generate icon. No image loaded.");
             return;
         }
-        
+
         var sizes = GetSizeArray();
-        
+
         if (sizes.Length == 0)
         {
             SetStatusMessage("Cannot generate icon. No sizes selected.");
@@ -113,9 +113,9 @@ public partial class MainForm : Form
             SetStatusMessage("Cannot generate icon. No file name specified.");
             return;
         }
-        
+
         var destinationDirectory = destinationDirectoryTextBox.Text;
-        
+
         if (string.IsNullOrWhiteSpace(destinationDirectory))
         {
             SetStatusMessage("Cannot generate icon. No destination directory specified.");
@@ -127,7 +127,7 @@ public partial class MainForm : Form
             SetStatusMessage("Cannot generate icon. Destination directory does not exist.");
             return;
         }
-        
+
         var fileName = iconFileNameTextBox.Text + ".ico";
         var iconPath = Path.Combine(destinationDirectory, fileName);
 
@@ -136,14 +136,14 @@ public partial class MainForm : Form
             var overwriteAcknowledgement =
                 MessageBox.Show(@"The icon file already exists. Overwrite it?",
                     @"Image To Icon", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            
+
             if (overwriteAcknowledgement == DialogResult.Cancel)
             {
                 SetStatusMessage("Cancelled generation since file already exists.");
                 return;
             }
         }
-        
+
         var success = ImagingHelper.ConvertToIcon(_image, iconPath, sizes);
 
         if (!success)
@@ -171,7 +171,7 @@ public partial class MainForm : Form
     {
         statusLabel.Text = message;
     }
-    
+
     #endregion Private members
 
     #region Event handlers
@@ -225,6 +225,19 @@ public partial class MainForm : Form
         }
 
         Process.Start("explorer.exe", directoryPath);
+    }
+
+    private void HelpButton_Click(object sender, EventArgs e)
+    {
+        var helpFilePath = "Help.txt";
+        
+        new Process
+        {
+            StartInfo = new ProcessStartInfo(helpFilePath)
+            {
+                UseShellExecute = true
+            }
+        }.Start();
     }
 
     #endregion Event handlers
