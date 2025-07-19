@@ -3,6 +3,7 @@ using System.Drawing.Imaging;
 
 namespace ImageToIcon;
 
+// ReSharper disable once CommentTypo
 /* DISCLAIMER
  *
  * This whole class was copied from this GitHub Gist: https://gist.github.com/darkfall/1656050
@@ -21,8 +22,13 @@ namespace ImageToIcon;
 /// </summary>
 public static class ImagingHelper
 {
+    // ReSharper disable once MemberCanBePrivate.Global
     public static readonly int[] DefaultSizes = [256, 48, 32, 16];
 
+    public static List<Image> LatestGeneratedImages { get; } = [];
+    
+    public static string? LatestGeneratedFilePath { get; private set; }
+    
     /// <summary>
     /// Converts a PNG image to an icon (ico) with all the sizes windows likes
     /// </summary>
@@ -30,9 +36,11 @@ public static class ImagingHelper
     /// <param name="output">The output stream</param>
     /// <param name="sizes">Array of image sizes to include in the .ICO file</param>
     /// <returns>Whether the icon was successfully generated</returns>
+    // ReSharper disable once MemberCanBePrivate.Global
     public static bool ConvertToIcon(Bitmap inputBitmap, Stream output,
         int[]? sizes = null)
     {
+        LatestGeneratedImages.Clear();
         sizes ??= DefaultSizes;
         if (sizes.Length == 0) return false;
 
@@ -42,9 +50,11 @@ public static class ImagingHelper
         foreach (var size in sizes)
         {
             var newBitmap = ResizeImage(inputBitmap, size, size);
-            using var memoryStream = new MemoryStream();
+            var memoryStream = new MemoryStream();
             newBitmap.Save(memoryStream, ImageFormat.Png);
             imageStreams.Add(memoryStream);
+            
+            LatestGeneratedImages.Add(newBitmap);
         }
 
         using var iconWriter = new BinaryWriter(output);
@@ -111,6 +121,7 @@ public static class ImagingHelper
     /// <param name="output">The output stream</param>
     /// <param name="sizes">Array of image sizes to include in the .ICO file</param>
     /// <returns>Whether the icon was successfully generated</returns>
+    // ReSharper disable once MemberCanBePrivate.Global
     public static bool ConvertToIcon(Stream input, Stream output,
         int[]? sizes = null)
     {
@@ -125,9 +136,11 @@ public static class ImagingHelper
     /// <param name="outputPath">The output path</param>
     /// <param name="sizes">Array of image sizes to include in the .ICO file</param>
     /// <returns>Whether the icon was successfully generated</returns>
+    // ReSharper disable once UnusedMember.Global
     public static bool ConvertToIcon(string inputPath, string outputPath,
         int[]? sizes = null)
     {
+        LatestGeneratedFilePath = outputPath;
         using var inputStream = new FileStream(inputPath, FileMode.Open);
         using var outputStream = new FileStream(outputPath, FileMode.OpenOrCreate);
         return ConvertToIcon(inputStream, outputStream, sizes);
@@ -143,6 +156,7 @@ public static class ImagingHelper
     public static bool ConvertToIcon(Image inputImage, string outputPath,
         int[]? sizes = null)
     {
+        LatestGeneratedFilePath = outputPath;
         using var outputStream = new FileStream(outputPath, FileMode.OpenOrCreate);
         return ConvertToIcon(new Bitmap(inputImage), outputStream, sizes);
     }
@@ -155,6 +169,7 @@ public static class ImagingHelper
     /// <param name="width">The width to resize to.</param>
     /// <param name="height">The height to resize to.</param>
     /// <returns>The resized image.</returns>
+    // ReSharper disable once MemberCanBePrivate.Global
     public static Bitmap ResizeImage(Image image, int width, int height)
     {
         var destRect = new Rectangle(0, 0, width, height);
