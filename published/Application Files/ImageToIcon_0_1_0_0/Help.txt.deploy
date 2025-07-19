@@ -1,0 +1,33 @@
+﻿ImageToIcon is a simple application for turning an ordinary image file (e.g. a PNG) into an
+icon (.ico) file for use in Windows.
+
+Start by loading the image file. The image will be displayed in its natural size in a picture
+box for viewing. The background color of the picture box is set to purple to make it easier to
+see whether the background of the image is transparent, which you typically want to have in an
+icon.
+
+Then you select the image sizes that you want in the icon file. When Windows displays an icon,
+it uses different sizes depending on the situation - e.g. a desktop shortcut usually uses a
+48x48 px image, while the icon in a window title bar is 16x16 pixels. If the icon file contains
+an image of the correct sixe, it will be used. If not, Windows will select an available size
+and resize it to the wanted size. This resizing will often result in a less-than-perfect image,
+so it is best to include at least the most commonly used icon image sizes in the icon file.
+
+In the sizes ImageToIcon window, the size checkboxes in the first column are the recommended
+sizes to include for Windows. However, if a user has set the Windows scaling to something other
+than 100%, Windows will use different icon sizes. Since the scaling can be set to an arbitrary
+value, you cannot include all possible sizes, but you might want to include the additional
+sizes that Windows use for the most common scaling settings: 125% and 150%. Those additional
+icon sizes have checkboxes in the columns to the right of the default sizes.
+
+When you have selected which sizes to include, choose a destination directory and the name for
+the .ico file. The default output diretory is the "My Pictures" standard directory. The default
+icon file name is the same name as the loaded image file, but with the ".ico" file extension.
+
+Then you just click the "Generate icon file" button tna the icon file will be generated.
+
+If the file is generated successfully, a new window will open where you can examine the
+individual images (different sizes) that were included in the icon file.
+
+And finally, if you click the "Open in Explorer" button, a File Explorer is opened, showing the 
+output directory with the generated icon file selected.
