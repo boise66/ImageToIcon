@@ -57,8 +57,11 @@
             label8 = new Label();
             openInExplorerButton = new Button();
             label9 = new Label();
+            statusStrip1 = new StatusStrip();
+            statusLabel = new ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)imagePictureBox).BeginInit();
             imageSizesGroupBox.SuspendLayout();
+            statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -265,7 +268,7 @@
             imageSizesGroupBox.Controls.Add(size256CheckBox);
             imageSizesGroupBox.Controls.Add(size32CheckBox);
             imageSizesGroupBox.Controls.Add(size48CheckBox);
-            imageSizesGroupBox.Location = new Point(12, 160);
+            imageSizesGroupBox.Location = new Point(12, 191);
             imageSizesGroupBox.Name = "imageSizesGroupBox";
             imageSizesGroupBox.Size = new Size(585, 177);
             imageSizesGroupBox.TabIndex = 10;
@@ -285,7 +288,7 @@
             // destinationBrowseButton
             // 
             destinationBrowseButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            destinationBrowseButton.Location = new Point(549, 358);
+            destinationBrowseButton.Location = new Point(549, 389);
             destinationBrowseButton.Name = "destinationBrowseButton";
             destinationBrowseButton.Size = new Size(60, 23);
             destinationBrowseButton.TabIndex = 13;
@@ -296,7 +299,7 @@
             // destinationDirectoryTextBox
             // 
             destinationDirectoryTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            destinationDirectoryTextBox.Location = new Point(12, 358);
+            destinationDirectoryTextBox.Location = new Point(12, 389);
             destinationDirectoryTextBox.Name = "destinationDirectoryTextBox";
             destinationDirectoryTextBox.Size = new Size(531, 23);
             destinationDirectoryTextBox.TabIndex = 12;
@@ -305,7 +308,7 @@
             // 
             label7.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label7.AutoSize = true;
-            label7.Location = new Point(12, 340);
+            label7.Location = new Point(12, 371);
             label7.Name = "label7";
             label7.Size = new Size(120, 15);
             label7.TabIndex = 11;
@@ -315,7 +318,7 @@
             // 
             label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label3.AutoSize = true;
-            label3.Location = new Point(12, 384);
+            label3.Location = new Point(12, 415);
             label3.Name = "label3";
             label3.Size = new Size(85, 15);
             label3.TabIndex = 14;
@@ -324,7 +327,7 @@
             // iconFileNameTextBox
             // 
             iconFileNameTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            iconFileNameTextBox.Location = new Point(12, 402);
+            iconFileNameTextBox.Location = new Point(12, 433);
             iconFileNameTextBox.Name = "iconFileNameTextBox";
             iconFileNameTextBox.Size = new Size(254, 23);
             iconFileNameTextBox.TabIndex = 15;
@@ -332,7 +335,7 @@
             // saveIconButton
             // 
             saveIconButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            saveIconButton.Location = new Point(325, 401);
+            saveIconButton.Location = new Point(325, 432);
             saveIconButton.Name = "saveIconButton";
             saveIconButton.Size = new Size(129, 23);
             saveIconButton.TabIndex = 16;
@@ -344,7 +347,7 @@
             // 
             label8.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label8.AutoSize = true;
-            label8.Location = new Point(272, 405);
+            label8.Location = new Point(272, 436);
             label8.Name = "label8";
             label8.Size = new Size(30, 15);
             label8.TabIndex = 17;
@@ -353,7 +356,7 @@
             // openInExplorerButton
             // 
             openInExplorerButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            openInExplorerButton.Location = new Point(472, 401);
+            openInExplorerButton.Location = new Point(472, 432);
             openInExplorerButton.Name = "openInExplorerButton";
             openInExplorerButton.Size = new Size(124, 23);
             openInExplorerButton.TabIndex = 18;
@@ -369,11 +372,30 @@
             label9.TabIndex = 19;
             label9.Text = "The loaded image is shown in its natural size in the picture box to the right.";
             // 
+            // statusStrip1
+            // 
+            statusStrip1.Items.AddRange(new ToolStripItem[] { statusLabel });
+            statusStrip1.Location = new Point(0, 463);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(620, 22);
+            statusStrip1.TabIndex = 20;
+            statusStrip1.Text = "statusStrip";
+            // 
+            // statusLabel
+            // 
+            statusLabel.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            statusLabel.Name = "statusLabel";
+            statusLabel.Size = new Size(574, 17);
+            statusLabel.Spring = true;
+            statusLabel.Text = "<status>";
+            statusLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(620, 437);
+            ClientSize = new Size(620, 485);
+            Controls.Add(statusStrip1);
             Controls.Add(label9);
             Controls.Add(openInExplorerButton);
             Controls.Add(label8);
@@ -394,6 +416,8 @@
             ((System.ComponentModel.ISupportInitialize)imagePictureBox).EndInit();
             imageSizesGroupBox.ResumeLayout(false);
             imageSizesGroupBox.PerformLayout();
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -428,5 +452,7 @@
         private Label label8;
         private Button openInExplorerButton;
         private Label label9;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel statusLabel;
     }
 }

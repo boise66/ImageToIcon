@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Drawing.Imaging;
 
 namespace ImageToIcon;
 
@@ -9,7 +8,7 @@ public partial class MainForm : Form
 
     private string? _imageFilePath;
     private Image? _image;
-    private Dictionary<CheckBox, int> _sizeByCheckBox = [];
+    private readonly Dictionary<CheckBox, int> _sizeByCheckBox = [];
 
     #endregion Types and definitions
 
@@ -29,6 +28,8 @@ public partial class MainForm : Form
         }
 
         destinationDirectoryTextBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+        
+        SetStatusMessage("Ready.");
     }
 
     #endregion Constructor and initialization
@@ -43,10 +44,36 @@ public partial class MainForm : Form
 
         var filePath = imagePathTextBox.Text;
 
-        // Sanity check.
-        if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath)) return;
+        if (string.IsNullOrWhiteSpace(filePath))
+        {
+            SetStatusMessage("Cannot load image. No file specified.");
+            return;
+        }
+        
+        if (!File.Exists(filePath))
+        {
+            SetStatusMessage("Cannot load image. Specified file does not exist.");
+            return;
+        }
 
-        _image = Image.FromFile(filePath);
+        try
+        {
+            _image = Image.FromFile(filePath);
+            if (_image == null)
+            {
+                SetStatusMessage("FAILED to load image. No image could be retrieved from the file.");
+                return;
+            }
+        }
+        catch (Exception e)
+        {
+            SetStatusMessage("FAILED to load image file. An exception occurred.");
+            MessageBox.Show($@"Exception when loading image file:\n\n{e}",
+                @"Image To Icon", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        
+        SetStatusMessage("Image file loaded.");
+        
         _imageFilePath = filePath;
 
         imagePictureBox.Image = _image;
@@ -67,41 +94,84 @@ public partial class MainForm : Form
 
     private void SaveIcon()
     {
-        // Sanity check.
-        if (_image == null) return;
-        if (string.IsNullOrWhiteSpace(destinationDirectoryTextBox.Text)) return;
-        if (string.IsNullOrWhiteSpace(iconFileNameTextBox.Text)) return;
-
-        var destinationDirectory = destinationDirectoryTextBox.Text;
-        var fileName = iconFileNameTextBox.Text + ".ico";
+        if (_image == null)
+        {
+            SetStatusMessage("Cannot generate icon. No image loaded.");
+            return;
+        }
+        
         var sizes = GetSizeArray();
+        
+        if (sizes.Length == 0)
+        {
+            SetStatusMessage("Cannot generate icon. No sizes selected.");
+            return;
+        }
 
-        if (!Directory.Exists(destinationDirectory)) return;
-        if (sizes.Length == 0) return;
+        if (string.IsNullOrWhiteSpace(iconFileNameTextBox.Text))
+        {
+            SetStatusMessage("Cannot generate icon. No file name specified.");
+            return;
+        }
+        
+        var destinationDirectory = destinationDirectoryTextBox.Text;
+        
+        if (string.IsNullOrWhiteSpace(destinationDirectory))
+        {
+            SetStatusMessage("Cannot generate icon. No destination directory specified.");
+            return;
+        }
 
+        if (!Directory.Exists(destinationDirectory))
+        {
+            SetStatusMessage("Cannot generate icon. Destination directory does not exist.");
+            return;
+        }
+        
+        var fileName = iconFileNameTextBox.Text + ".ico";
         var iconPath = Path.Combine(destinationDirectory, fileName);
 
+        if (File.Exists(iconPath))
+        {
+            var overwriteAcknowledgement =
+                MessageBox.Show(@"The icon file already exists. Overwrite it?",
+                    @"Image To Icon", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            
+            if (overwriteAcknowledgement == DialogResult.Cancel)
+            {
+                SetStatusMessage("Cancelled generation since file already exists.");
+                return;
+            }
+        }
+        
         var success = ImagingHelper.ConvertToIcon(_image, iconPath, sizes);
 
         if (!success)
         {
+            SetStatusMessage("FAILED to generate icon file!");
             MessageBox.Show(@"Failed to generate icon file.",
                 @"Image To Icon", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
 
+        SetStatusMessage($"Successfully generated icon file {iconPath}");
         var name = string.IsNullOrWhiteSpace(ImagingHelper.LatestGeneratedFilePath)
             ? "unnamed"
             : Path.GetFileName(ImagingHelper.LatestGeneratedFilePath);
         ShowIconImages(ImagingHelper.LatestGeneratedImages, name);
     }
 
-    private void ShowIconImages(List<Image> images, string name)
+    private static void ShowIconImages(List<Image> images, string name)
     {
         var form = new IconImagesForm(images, name);
         form.Show();
     }
 
+    private void SetStatusMessage(string message = "")
+    {
+        statusLabel.Text = message;
+    }
+    
     #endregion Private members
 
     #region Event handlers

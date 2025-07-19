@@ -3,6 +3,7 @@ using System.Drawing.Imaging;
 
 namespace ImageToIcon;
 
+// ReSharper disable once CommentTypo
 /* DISCLAIMER
  *
  * This whole class was copied from this GitHub Gist: https://gist.github.com/darkfall/1656050
@@ -21,9 +22,10 @@ namespace ImageToIcon;
 /// </summary>
 public static class ImagingHelper
 {
+    // ReSharper disable once MemberCanBePrivate.Global
     public static readonly int[] DefaultSizes = [256, 48, 32, 16];
 
-    public static List<Image> LatestGeneratedImages { get; private set; } = [];
+    public static List<Image> LatestGeneratedImages { get; } = [];
     
     public static string? LatestGeneratedFilePath { get; private set; }
     
@@ -34,6 +36,7 @@ public static class ImagingHelper
     /// <param name="output">The output stream</param>
     /// <param name="sizes">Array of image sizes to include in the .ICO file</param>
     /// <returns>Whether the icon was successfully generated</returns>
+    // ReSharper disable once MemberCanBePrivate.Global
     public static bool ConvertToIcon(Bitmap inputBitmap, Stream output,
         int[]? sizes = null)
     {
@@ -118,6 +121,7 @@ public static class ImagingHelper
     /// <param name="output">The output stream</param>
     /// <param name="sizes">Array of image sizes to include in the .ICO file</param>
     /// <returns>Whether the icon was successfully generated</returns>
+    // ReSharper disable once MemberCanBePrivate.Global
     public static bool ConvertToIcon(Stream input, Stream output,
         int[]? sizes = null)
     {
@@ -132,6 +136,7 @@ public static class ImagingHelper
     /// <param name="outputPath">The output path</param>
     /// <param name="sizes">Array of image sizes to include in the .ICO file</param>
     /// <returns>Whether the icon was successfully generated</returns>
+    // ReSharper disable once UnusedMember.Global
     public static bool ConvertToIcon(string inputPath, string outputPath,
         int[]? sizes = null)
     {
@@ -164,6 +169,7 @@ public static class ImagingHelper
     /// <param name="width">The width to resize to.</param>
     /// <param name="height">The height to resize to.</param>
     /// <returns>The resized image.</returns>
+    // ReSharper disable once MemberCanBePrivate.Global
     public static Bitmap ResizeImage(Image image, int width, int height)
     {
         var destRect = new Rectangle(0, 0, width, height);
